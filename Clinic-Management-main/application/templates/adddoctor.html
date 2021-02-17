@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% include "includes/nav.html" %} {% block content %}
+<section id="adddoctor">
+  <div class="form1">  
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
+    messages %}
+    <small class="text-success">{{ msg }}</small>
+    {% endfor %} {% endif %} {% endwith%}
+    <h1>Register Patient</h1>
+    <form action="" method="POST">
+      <div class="inner-form">
+      <div class="form-input">
+        <label for="dname">Name:&nbsp;</label>
+        <input type="text" class="text1" id="dname" name="dname" required />
+      </div>
+      <div class="form-input">
+        <label for="dphone">Phone No:&nbsp;</label>
+        <input
+          type="number"
+          class="text1"
+          id="dphone"
+          maxlength="12"  
+          min="10"
+          name="dphone"
+          required
+        />
+      </div>
+      <div class="form-input">
+        <label for="dqual">Qualification:&nbsp;</label>
+        <input type="text" id="dqual" class="text1" name="dqual">
+      </div>
+      <div class="form-input btn-submit">
+        <button class="button" type="submit">Save</button>
+
+      </div>
+    </form>
+   
+  </div></div> 
+  
+</section>
+{% endblock %}

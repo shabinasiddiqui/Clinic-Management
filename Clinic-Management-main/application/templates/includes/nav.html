@@ -1,0 +1,68 @@
+{% extends 'layout.html' %} {% block nav %}
+<div class="row-nav">
+  <div class="nav-left">
+    <nav class="navbar navbar-expand">
+      <ul class="navbar-nav" navbar>
+        <li class="nav-item">
+          <a href="{{ url_for('home') }}" class="nav-link"
+            ><i class="fa fa-desktop" aria-hidden="true">&nbsp;</i>Dashboard</a
+          >
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="" class="nav-link dropbtn"
+            ><i class="fa fa-heartbeat" aria-hidden="true">&nbsp;</i>Patients</a
+          >
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="{{ url_for('newpatient') }}"
+              >New Patients</a
+            >
+            <a class="dropdown-item" href="{{ url_for('patientrecord') }}"
+              >Patients Record</a
+            >
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="" class="nav-link dropbtn"
+            ><i class="fa fa-stethoscope" aria-hidden="true">&nbsp;</i
+            >Doctors</a
+          >
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="{{url_for('adddoctor')}}"
+              >Add Doctor</a
+            >
+            <a class="dropdown-item" href="{{url_for('alldoctor')}}"
+              >All Doctor</a
+            >
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="" class="nav-link dropbtn"
+            ><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i
+            >Appointments</a
+          >
+          <div class="dropdown-content">
+            <a class="dropdown-item" href="">New Appointment</a>
+            <a class="dropdown-item" href="">Pending Appointments</a>
+            <a class="dropdown-item" href="">Today's Appointment</a>
+            <a class="dropdown-item" href="">All Appointment</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <div class="acc acc-account">
+      <a href="{{ url_for('account') }}" class="nav-link"
+        ><i class="fa fa-user" aria-hidden="true">&nbsp;</i>Account</a
+      >
+    </div>
+    <div class="acc acc-logout">
+      <a href="{{ url_for('logout') }}" class="nav-link"
+        ><i class="fa fa-sign-out" aria-hidden="true">&nbsp;</i>Logout</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock nav %}

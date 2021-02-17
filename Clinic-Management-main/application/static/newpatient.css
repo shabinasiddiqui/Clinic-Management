@@ -1,0 +1,83 @@
+#addpatient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form1 {
+  height: 900px;
+  width: 900px;
+  font-size: 20px;
+  color: #0c2461;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+.form1 h1 {
+  margin-bottom: 10% !important;
+  font-size: 30px;
+}
+.inner-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 700px;
+  width: 350px;
+}
+input:focus {
+  border-color: none;
+}
+/* div {
+  border: 1px solid black;
+} */
+.form-input {
+  width: 350px;
+}
+input {
+  width: 100%;
+}
+.gender {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 120px;
+}
+
+textarea {
+  vertical-align: top;
+  width: 100%;
+}
+
+.btn-submit {
+  display: flex;
+  justify-content: center;
+}
+.btn-submit button {
+  background: #0c2461;
+  color: white;
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+}
+.btn-submit button:hover {
+  background: #334b8e;
+  color: white;
+  border-color: none;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px #587cdf;
+  transition: 0.5s all;
+  transform: translateZ(1px);
+}
+.text-success {
+  height: 50px;
+  text-align: center;
+}
+/* div {
+  border: 1px solid black;
+} */

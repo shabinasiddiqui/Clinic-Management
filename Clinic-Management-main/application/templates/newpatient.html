@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+{% include "includes/nav.html" %} {% block content %}
+<section id="addpatient">
+  <div class="form1">  
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
+    messages %}
+    <small class="text-success">{{ msg }}</small>
+    {% endfor %} {% endif %} {% endwith%}
+    <h1>Register Patient</h1>
+    <form action="" method="POST">
+      <div class="inner-form">
+      <div class="form-input">
+        <label for="pname">Name:&nbsp;</label>
+        <input type="text" class="text1" id="pname" name="pname" required />
+      </div>
+      <div class="form-input">
+        <label for="age">Age:&nbsp;</label>
+        <input
+          type="number"
+          class="text1"
+          id="age"
+          maxlength="3"
+          min="0"
+          name="age"
+          required
+        />
+      </div>
+      <div class="form-input">
+        <label for="phone">Phone No:&nbsp;</label>
+        <input
+          type="number"
+          class="text1"
+          id="phone"
+          maxlength="12"  
+          min="10"
+          name="phone"
+          required
+        />
+      </div>
+      <div class="form-input gender">
+        <label for="gender">Gender :</label>
+        <div class="radio">
+          <input type="radio" value="male" name="gender" checked><label>Male</label>
+        </div>
+        <div class="radio">
+          <input type="radio" value="female" name="gender"><label>Female</label>
+        </div>
+      </div>
+      <div class="form-input">
+        <label for="bgroup">Blood Group:&nbsp;</label>
+        <select id="bgroup" class="text1" name="bgroup">
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>          
+        </select>
+      </div>
+      <div class="form-input">
+        <label for="state">State & City:&nbsp;</label>
+        <input type="text" id="state" class="text1" name="state">
+      </div>
+      <div class="form-input">
+        <label for="address">Address:&nbsp;</label>
+        <input type="text" id="address" class="text1" name="address">
+      </div>
+      <div class="form-input">
+        <label for="mstatus">Maritial Status:&nbsp;</label>
+        <select id="mstatus" class="text1" name="mstatus">
+          <option value="Married">Married</option>
+          <option value="Unmarried">Unmarried</option>
+        </select>
+      </div>
+      <div class="form-input">
+        <label for="complaint">Complaints:&nbsp;</label>
+        <textarea class="text1" name="complaint" id="complaint"></textarea>
+       
+      </div>
+
+      <div class="form-input btn-submit">
+        <button class="button" type="submit">Save</button>
+
+      </div>
+    </form>
+   
+  </div></div> 
+  
+</section>
+{% endblock %}

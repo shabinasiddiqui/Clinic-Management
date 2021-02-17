@@ -1,0 +1,43 @@
+body {
+  counter-reset: Serial;
+}
+
+table {
+  border-collapse: separate;
+}
+
+tr td:first-child:before {
+  counter-increment: Serial;
+  content: counter(Serial);
+}
+
+table {
+  margin-top: 50px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.search-box {
+  align-self: flex-end;
+  margin-top: 50px;
+}
+.search-box button {
+  background: #0c2461;
+  color: white;
+}
+.search-box button:hover {
+  background: #273c75;
+  box-shadow: 2px 2px 3px #587cdf;
+  transform: translateZ(1px);
+  transition: 0.5s all;
+}
+
+.thead {
+  background: #0c2461;
+  color: white;
+}
+/* div {
+  border: 1px solid black;
+} */

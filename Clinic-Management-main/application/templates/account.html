@@ -1,0 +1,32 @@
+{% extends 'layout.html' %} {% include "includes/nav.html" %} {% block content%}
+
+
+<section id="account">
+    <div class="account-body">
+            
+        <form action="" method="POST">
+            <h1>Account Info</h1>
+
+            <!-- <img class="rounded-circle account-img" src="{{ account.profileimage }}"> -->
+            
+            <div class="account-username">
+                <label for="nusername" class="account-heading">Username</label>
+                <input class="account-heading" name="nusername" value="{{account.username}}"></h2>
+            </div>
+            <div account-phone>
+                <label for="nphone" class="account-heading">Phone</label>
+                <input class="account-heading" name="nphone" value="{{account.phone}}">
+            </div>
+            <div account-password>
+                <label for="npass" class="account-heading" >Password</label>
+                <input type="password" name="npass" class="account-heading" value="{{account.password}}">
+            </div>
+            <div class="update-btn">
+                <!-- <button class="btn" type="submit" onclick="window.location='editaccount/{{ account.id }}'">Update</button> -->
+                <button class="btn" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</section> 
+
+{% endblock content %}

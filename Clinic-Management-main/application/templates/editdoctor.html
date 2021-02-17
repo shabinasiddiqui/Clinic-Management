@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% include "includes/nav.html" %} {% block content %}
+<section id="adddoctor">
+  <div class="form1">  
+    <h1>Update Doctor Detail</h1>
+    {% for edit in editdoc %}
+    <form action="" method="POST">
+      <div class="inner-form">
+      <div class="form-input">
+        <label for="ndname">Name:&nbsp;</label>
+        <input type="text" class="text1" id="dname" name="ndname" value="{{edit.dname}}" />
+      </div>
+      <div class="form-input">
+        <label for="ndphone">Phone No:&nbsp;</label>
+        <input
+          type="number"
+          class="text1"
+          id="dphone"
+          maxlength="12"  
+          min="10"
+          name="ndphone"
+          value="{{edit.dphone}}"
+        />
+      </div>
+      <div class="form-input">
+        <label for="ndqual">Qualification:&nbsp;</label>
+        <input type="text" id="dqual" class="text1" name="ndqual" value="{{edit.dqual}}">
+      </div>
+      <div class="form-input btn-submit">
+        <button class="button" type="submit">Save</button>
+
+      </div>
+    </form>
+    {% endfor %}
+   
+  </div></div> 
+  
+</section>
+{% endblock %}
