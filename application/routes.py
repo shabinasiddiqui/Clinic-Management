@@ -108,65 +108,88 @@ def logout():
 @app.route('/account', methods=['GET','POST'])
 def account():
   if 'username' in session:
+    account= Userstore.query.first()
     if request.method=='GET':
-      account= Userstore.query.first()
       profileimage=url_for('static', filename='images/' + 'account.profileimage')
       return render_template('account.html', account= account, profileimage=profileimage)
 
-    elif request.method == 'POST':  
-      editaccount = Userstore.query.filter_by( id = id )
+  return render_template('account.html', account=account)
+
+    # elif request.method == 'POST':  
+    #   editaccount = Userstore.query.filter_by( id = id )
+    #   username = request.form['nusername']      
+    #   phone = request.form['nphone']
+    #   password = request.form['npass']
+
+    #   row_update = Userstore.query.filter_by( id = id ).update(dict(id=id,username=username, phone=phone, password=password))
+    #   db.session.commit()
+
+    #   # if row_update == None:
+    #   #   flash('Something Went Wrong')
+    #   #   return redirect( url_for('account') )
+    #   # else:
+    #   #   flash('Patient update initiated successfully')
+    #   #   return redirect( url_for('account') )
+
+    # return render_template('account.html', editaccount = editaccount)
+
+
+# @app.route("/account", methods=['GET', 'POST'])
+# @login_required
+# def account():
+#   form = UpdateAccountForm()
+#   if form.validate_on_submit():
+#     if form.picture.data:
+#         picture_file = save_picture(form.picture.data)
+#         current_user.image_file = picture_file
+#     current_user.username = form.username.data
+#     current_user.email = form.email.data
+#     db.session.commit()
+#     flash('Your account has been updated!', 'success')
+#     return redirect(url_for('account'))
+#   elif request.method == 'GET':
+#       form.username.data = current_user.username
+#       form.phone.data = current_user.phone
+#   image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+#   return render_template('account.html', title='Account',image_file=image_file, form=form)
+  
+
+@app.route('/editaccount/<id>', methods=['GET', 'POST'])
+def editaccount(id):
+  if 'username' in session:
+    editaccount = Userstore.query.filter_by( id = id ).first()
+
+    if request.method == 'POST':  
       username = request.form['nusername']      
       phone = request.form['nphone']
       password = request.form['npass']
 
-      row_update = Userstore.query.filter_by( id = id ).update(dict(id=id,username=username, phone=phone, password=password))
+      row_update = Userstore.query.filter_by( id = id ).update(dict(username=username, phone=phone, password=password))
       db.session.commit()
 
+      flash('Patient update initiated successfully')
       # if row_update == None:
       #   flash('Something Went Wrong')
-      #   return redirect( url_for('account') )
+      #   return redirect( url_for('editaccount') )
       # else:
       #   flash('Patient update initiated successfully')
-      #   return redirect( url_for('account') )
+      #   return redirect( url_for('editaccount/<id>') )
 
-    return render_template('account.html', editaccount = editaccount)
-  
-
-# @app.route('/editaccount/<id>', methods=['GET', 'POST'])
-# def editaccount(id):
-#   if 'username' in session:
-#     editaccount = Userstore.query.filter_by( id = id )
-
-#     if request.method == 'POST':  
-#       username = request.form['nusername']      
-#       phone = request.form['nphone']
-#       password = request.form['npass']
-
-#       row_update = Userstore.query.filter_by( id = id ).update(dict(username=username, phone=phone, password=password))
-#       db.session.commit()
-
-#       if row_update == None:
-#         flash('Something Went Wrong')
-#         return redirect( url_for('account') )
-#       else:
-#         flash('Patient update initiated successfully')
-#         return redirect( url_for('account') )
-
-#     return render_template('account.html', editaccount = editaccount)
+    return render_template('updateaccount.html', editaccount = editaccount)
 
 
-def save_picture(form_picture):
-  random_hex = secrets.token_hex(8)
-  _, f_ext = os.path.splitext(form_picture.filename)
-  picture_fn = random_hex + f_ext
-  picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+# def save_picture(form_picture):
+#   random_hex = secrets.token_hex(8)
+#   _, f_ext = os.path.splitext(form_picture.filename)
+#   picture_fn = random_hex + f_ext
+#   picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
 
-  output_size = (125, 125)
-  i = Image.open(form_picture)
-  i.thumbnail(output_size)
-  i.save(picture_path)
+#   output_size = (125, 125)
+#   i = Image.open(form_picture)
+#   i.thumbnail(output_size)
+#   i.save(picture_path)
 
-  return picture_fn
+#   return picture_fn
 
 @app.route('/newpatient', methods=['GET', 'POST'])
 def newpatient():
@@ -351,3 +374,25 @@ def appointment():
         flash('Enter Name to search')
         return redirect( url_for('appointment') )
   return render_template('appointment.html')
+
+@app.route('/addappointment/<id>',methods=['POST','GET'])
+def addappointment(id):
+  if 'username' in session:
+    addapp = Patient.query.filter_by(id=id).first()
+    # if request.method=='POST':
+      
+  #     pname = request.form['pname']
+  #     if pname != "":
+  #       search="%{}%".format(pname)
+  #       patient = Patient.query.filter(Patient.pname.ilike(search))
+  #       if patient == None:
+  #         flash('No Patients with  this Name exists', 'danger')
+  #         return redirect( url_for('appointment') )
+  #       else:
+  #         flash('Patient Found','success')
+  #         return render_template('appointment.html', patient = patient)
+      
+  #     if pname == "":
+  #       flash('Enter Name to search')
+  #       return redirect( url_for('appointment') )
+    return render_template('addappointment.html',addapp=addapp)
