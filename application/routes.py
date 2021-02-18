@@ -48,13 +48,24 @@ class Doctor(db.Model):
   __tablename__ = 'Doctor'
   id = db.Column(db.Integer, primary_key=True)
   dname = db.Column(db.String(20))
-  dphone=db.Column(db.String(20))
+  dphone = db.Column(db.String(20))
   dqual = db.Column(db.String(100))
   profileimage = db.Column(db.String(20), nullable=False, default='default.jpg')
 
   def __repr__(self) -> str:
     return f"Doctor('{self.id}','{self.dname}', '{self.dphone}', '{self.dqual}', '{self.profileimage}' )"
 
+class Appointments(db.Model):
+  __tablename__ = 'Appointments'
+  id = db.Column(db.Integer, primary_key=True)
+  doctor_id = db.Column(db.Integer, db.ForeignKey(Doctor.id))
+  patient_id = db.Column(db.Integer, db.ForeignKey(Patient.id))
+  complaint = db.Column(db.String(5000))
+  medicine_suggested = db.Column(db.String(5000))
+  improvements = db.Column(db.String(5000))
+  # datetime = db.Column(datetime.now(), nullable=False)
+  def __repr__(self) -> str:
+    return f"Appointments('{self.id}','{self.doctor_id}','{self.patient_id}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.datetime}' )"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -208,7 +219,7 @@ def patientrecord():
           return render_template('patientrecord.html', patient = patient)
       
       if pname == "":
-        flash('Enter  id to search')
+        flash('Enter Name to search')
         return redirect( url_for('patientrecord') )
     
     return render_template('patientrecord.html')
@@ -320,3 +331,23 @@ def editdoctor(id):
         return redirect( url_for('alldoctor') )
 
     return render_template('editdoctor.html', editdoc=editdoc)
+
+@app.route('/appointment',methods=['POST','GET'])
+def appointment():
+  if 'username' in session:
+    if request.method=='POST':
+      pname = request.form['pname']
+      if pname != "":
+        search="%{}%".format(pname)
+        patient = Patient.query.filter(Patient.pname.ilike(search))
+        if patient == None:
+          flash('No Patients with  this Name exists', 'danger')
+          return redirect( url_for('appointment') )
+        else:
+          flash('Patient Found','success')
+          return render_template('appointment.html', patient = patient)
+      
+      if pname == "":
+        flash('Enter Name to search')
+        return redirect( url_for('appointment') )
+  return render_template('appointment.html')
