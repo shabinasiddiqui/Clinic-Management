@@ -2,14 +2,14 @@
 
 {% include "includes/nav.html" %} {% block content %}
 <section id="addpatient">
-  <div class="form1">  
+  <div class="form-style form-newpat">  
     {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
     messages %}
     <small class="text-success">{{ msg }}</small>
     {% endfor %} {% endif %} {% endwith%}
-    <h1>Register Patient</h1>
+    <h1 class="mt-4">Register Patient</h1>
     <form action="" method="POST">
-      <div class="inner-form">
+      <div class="inner-form inner-newpat">
       <div class="form-input">
         <label for="pname">Name:&nbsp;</label>
         <input type="text" class="text1" id="pname" name="pname" required />

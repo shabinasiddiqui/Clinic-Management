@@ -2,11 +2,11 @@
 
 {% include "includes/nav.html" %} {% block content %}
 <section id="adddoctor">
-  <div class="form1">  
-    <h1>Update Doctor Detail</h1>
+  <div class="form-style form-doc">  
+    <h1 class="mt-4">Update Doctor Detail</h1>
     {% for edit in editdoc %}
     <form action="" method="POST">
-      <div class="inner-form">
+      <div class="inner-form inner-editdoc mt-4">
       <div class="form-input">
         <label for="ndname">Name:&nbsp;</label>
         <input type="text" class="text1" id="dname" name="ndname" value="{{edit.dname}}" />

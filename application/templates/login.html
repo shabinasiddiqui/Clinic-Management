@@ -2,7 +2,7 @@
 
 <div class="regwrapper">
   <div class="loginheading">
-    <p><b> Administration Staff Login</b></p>
+    <p><b> Administration &nbsp; Login</b></p>
   </div>
   <div class="valid-feedback">
     {% with messages = get_flashed_messages() %} {% if messages %}{% for msg in
@@ -16,7 +16,7 @@
   <div class="form">
     <form action="" method="post">
       <label for="uname"> Username </label><br /><input
-        class="text"
+        class="text user-input"
         type="text"
         name="username"
         required
@@ -27,7 +27,7 @@
 
       <label for="pass"> Password </label>
       <br /><input
-        class="text"
+        class="text user-input"
         type="password"
         name="password"
         required

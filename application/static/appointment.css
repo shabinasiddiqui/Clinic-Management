@@ -1,3 +1,10 @@
+#addapp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .addapp-btn {
   background: #0c2461;
   color: white;
@@ -10,4 +17,31 @@
   box-shadow: 2px 2px 3px #587cdf;
   transition: 0.5s all;
   transform: translateZ(1px);
+}
+
+.addapp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
+  height: 500px;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
+}
+
+.outer-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.app-view {
+  display: flex;
+  flex-direction: row;
+}
+.app-card {
+  height: 350px;
+  width: 450px;
 }

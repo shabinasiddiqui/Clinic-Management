@@ -1,0 +1,10 @@
+.alldoc-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alldoc-table {
+  display: flex;
+  justify-content: center;
+}

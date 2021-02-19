@@ -1,8 +1,8 @@
 {% extends "layout.html" %} {% include "includes/nav.html" %} {% block content
 %}
 <section id="addpatient">
-  <div class="form1">  
-    <h1>Edit Patient</h1>
+  <div class="form-editpat form-style">  
+    <h1 class="mt-4">Edit Patient</h1>
     {% for edit in editpat %}
     <form action="" method="POST">
       <div class="inner-form">
@@ -83,7 +83,7 @@
       </div>
 
       <div class="form-input btn-submit">
-        <button class="button" type="submit">Update</button>
+        <button class="button mt-2" type="submit">Update</button>
 
       </div>
     </form>

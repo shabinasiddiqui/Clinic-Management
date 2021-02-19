@@ -1,69 +1,72 @@
 {% extends 'layout.html' %}{% include 'includes/nav.html' %} {% block content%}
+<section id="addapp">
+  <div class="addapp-container mt-5">
+    <form action="" method="POST">
+      <div class="row">
+        <div class="col-6">
+          <label for="">Name:&nbsp;{{ addapp.pname }}</label>
+        </div>
 
-<div class="container mt-5">
-  <form action="" method="POST">
-    <div class="row">
-      <div class="col-6">
-        <label for="">Name:&nbsp;{{ addapp.pname }}</label>
-      </div>
-
-      <div class="col-6">
-        <label for="">Phone:&nbsp;{{addapp.phone}}</label>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-6">
-        <label for="">Blood Group:&nbsp;{{ addapp.bgroup }}</label>
+        <div class="col-6">
+          <label for="">Phone:&nbsp;{{addapp.phone}}</label>
+        </div>
       </div>
 
-      <div class="col-6">
-        <label for="">Previous Complaints:&nbsp;{{addapp.complaint}}</label>
-      </div>
-    </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="">Blood Group:&nbsp;{{ addapp.bgroup }}</label>
+        </div>
 
-    <div class="row">
-      <div class="col-6">
-        <label for="examinedby">Examined By:&nbsp;</label>
-        <select name="examinedby" id="examinedby">
-          {% for i in docdetail %}
-          <option value="{{ i.dname }}">{{ i.dname }}</option>
-          {% endfor %}
-        </select>
+        <div class="col-6">
+          <label for="">Previous Complaints:&nbsp;{{addapp.complaint}}</label>
+        </div>
       </div>
-      <div class="col-6">
-        <label for="complaint">New Complaints:&nbsp;</label>
-        <textarea name="complaint" id="" cols="15" rows="3"></textarea>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-6">
-        <label for="improvements">Improvements:&nbsp;</label>
-        <textarea name="improvements" id="" cols="15" rows="3"></textarea>
+      <div class="row">
+        <div class="col-6">
+          <label for="examinedby">Examined By:&nbsp;</label>
+          <select name="examinedby" id="examinedby">
+            {% for i in docdetail %}
+            <option value="{{ i.dname }}">{{ i.dname }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="complaint">New Complaints:&nbsp;</label>
+          <textarea name="complaint" id="" cols="15" rows="3"></textarea>
+        </div>
       </div>
-      <div class="col-6">
-        <label for="medicine_suggested">Medicine Suggested:&nbsp;</label>
-        <textarea name="medicine_suggested" id="" cols="15" rows="3"></textarea>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-6">
-        <label for="date">Date:&nbsp;</label>
-        <input name="date" type="date" />
+      <div class="row">
+        <div class="col-6">
+          <label for="improvements">Improvements:&nbsp;</label>
+          <textarea name="improvements" id="" cols="15" rows="3"></textarea>
+        </div>
+        <div class="col-6">
+          <label for="medicine_suggested">Medicine Suggested:&nbsp;</label>
+          <textarea
+            name="medicine_suggested"
+            id=""
+            cols="15"
+            rows="3"
+          ></textarea>
+        </div>
       </div>
-      <div class="col-6">
-        <label for="time">Time:&nbsp;</label>
-        <input name="time" type="time" />
+
+      <div class="row">
+        <div class="col-6">
+          <label for="date">Date:&nbsp;</label>
+          <input name="date" type="date" />
+        </div>
+        <div class="col-6">
+          <label for="time">Time:&nbsp;</label>
+          <input name="time" type="time" />
+        </div>
       </div>
-    </div>
-    <div
-      class="row mt-4 justify-content-center"
-      style="border: 1px solid black"
-    >
-      <button class="btn addapp-btn" type="submit">Add Appointment</button>
-    </div>
-  </form>
-</div>
+      <div class="row mt-4 justify-content-center">
+        <button class="btn addapp-btn" type="submit">Add Appointment</button>
+      </div>
+    </form>
+  </div>
+</section>
 {% endblock content%}

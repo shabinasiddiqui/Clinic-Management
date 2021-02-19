@@ -1,15 +1,15 @@
 {% extends 'layout.html' %} {% include "includes/nav.html" %} {% block content
 %}
 <section id="adddoctor">
-  <div class="adddoc-inner">
-    <div class="adddoc-heading">
+  <div class="adddoc-inner mt-5">
+    <div class="adddoc-heading mt-4">
       {% with messages = get_flashed_messages() %} {% if messages %} {% for msg
       in messages %}
       <small class="text-success">{{ msg }}</small>
       {% endfor %} {% endif %} {% endwith%}
-      <h1>Register Patient</h1>
+      <h1>Register Doctor</h1>
     </div>
-    <div class="adddoc-form" style="border: 1px solid black">
+    <div class="adddoc-form mt-4">
       <form action="" method="POST">
         <!-- <div class="inner-form"> -->
         <div class="form-input">

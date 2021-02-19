@@ -1,10 +1,10 @@
 {% extends 'layout.html' %} {% include "includes/nav.html" %} {% block content%}
 
 <section id="account">
-    <div class="account-body">
+    <div class="account-body form-style mt-5">
             
         <form action="" method="POST">
-            <h1>Account Info</h1>
+            <h1 class="mb-4">Account Info</h1>
            
             <div class="account-username">
                 <label for="nusername" class="account-heading">Username</label>
@@ -18,7 +18,7 @@
                 <label for="npass" class="account-heading" >Password</label>
                 <input type="password" name="npass" class="account-heading" value="{{account.password}}">
             </div>
-            <div class="update-btn">
+            <div class="update-btn mt-2">
                 <button class="btn" type="submit" onclick="window.location='editaccount/1'">Update</button>
                 <!-- <button class="btn"   type="submit">Update</button> -->
             </div>

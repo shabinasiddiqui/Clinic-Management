@@ -2,7 +2,7 @@
 
 body {
   background: #c7ecee;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
   background-size: cover;
   background-position: center;
@@ -17,13 +17,19 @@ body {
   padding-bottom: 0.5px;
   text-align: center;
   font-size: 30px;
+  border-radius: 7px;
+  box-shadow: 3px 3px 3px rgba(12, 36, 97, 0.4);
 }
 .regwrapper {
-  width: 40%;
+  width: 35%;
   margin: auto;
   margin-top: 10rem;
   padding: 20px 20px;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
 }
+
 .form {
   padding: 20px 0;
   width: auto;
@@ -38,8 +44,8 @@ body {
 .form .text {
   width: 100%;
   padding: 5px 15px;
-  border: solid 2px #0c2461;
-  border-radius: 5px;
+  /* border: solid 2px #0c2461; */
+  /* border-radius: 5px; */
   font-size: 19px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -47,8 +53,7 @@ body {
 .form .text1 {
   width: 100%;
   padding: 5px 10px;
-  border: solid 1px #0a0a0a;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 19px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -65,10 +70,26 @@ body {
   margin-top: 10px;
   align-items: center;
 }
+.form .bt:hover {
+  transform: translateZ(2px);
+  box-shadow: 2px 2px 3px rgba(12, 36, 97, 0.4);
+  background-color: #273c75;
+  transition: 0.5s all;
+}
 .col-input {
   height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.user-input {
+  border: 1px solid rgba(12, 36, 97, 0.3);
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(12, 36, 97, 0.4);
+}
+.user-input:focus {
+  outline: none;
+  box-shadow: 2px 2px 3px rgba(12, 36, 97, 0.8);
+  transform: translateZ(2px);
 }

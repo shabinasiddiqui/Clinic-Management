@@ -4,7 +4,6 @@
   align-items: center;
 }
 .account-body {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   height: 500px;
