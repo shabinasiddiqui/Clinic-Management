@@ -1,0 +1,13 @@
+.addapp-btn {
+  background: #0c2461;
+  color: white;
+}
+.addapp-btn:hover {
+  background: #334b8e;
+  color: white;
+  border-color: none;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px #587cdf;
+  transition: 0.5s all;
+  transform: translateZ(1px);
+}

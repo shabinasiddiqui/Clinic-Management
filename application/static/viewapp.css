@@ -1,0 +1,41 @@
+#viewapp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.outer-container {
+  height: 100vh;
+}
+.container-view {
+  margin-top: 20px;
+  height: 300px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgb(68, 64, 64), 1px 1px 2px rgb(68, 64, 64);
+}
+.row-view {
+  height: 90px;
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.col-5 {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: #0c2461;
+}
+.inner-col {
+  /* border: 1px solid black; */
+  padding: 0 10px;
+  box-shadow: 1px 1px rgb(68, 64, 64);
+  border-radius: 5px;
+  border: 1px solid rgba(68, 64, 64, 0.2);
+}

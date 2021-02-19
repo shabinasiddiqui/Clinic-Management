@@ -1,0 +1,15 @@
+#adddoctor {
+  height: 100vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.adddoc-inner {
+  height: 500px;
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

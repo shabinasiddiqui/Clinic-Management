@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}{% include 'includes/nav.html' %} {% block content%}
+<section id="viewapp">
+  <div class="outer-container">
+    <div class="container-view">
+      <form action="" method="GET">
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Name:&nbsp;{{ pat.pname }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Phone:&nbsp;{{pat.phone}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Blood Group:&nbsp;{{ pat.bgroup }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Previous Complaints:&nbsp;{{pat.complaint}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-view">
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for="">Improvement:&nbsp;{{ pat.improvement }}</label>
+            </div>
+          </div>
+
+          <div class="col-5 col-view">
+            <div class="inner-col">
+              <label for=""
+                >Medicine Suggested:&nbsp;{{pat.medicine_suggested}}</label
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div>
+      {% for i in appointment %}
+      <div>
+        <div>
+          <label for=""></label>
+        </div>
+        <div>
+          <label for="">Examined By:&nbsp;{{ i.examinedby }}</label>
+        </div>
+        <div>
+          <label for="">Complaint: &nbsp;{{ i.complaint }}</label>
+        </div>
+        <div>
+          <label for="">Improvement: &nbsp;{{ i.improvements }}</label>
+        </div>
+        <div>
+          <label for=""
+            >Medicine Suggested: &nbsp;{{ i.medicine_suggested }}</label
+          >
+        </div>
+        <div>
+          <label for="">Date: &nbsp;{{ i.date }}</label>
+        </div>
+        <div>
+          <label for="">Time: &nbsp;{{ i.time }}</label>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="dbutton"
+            onclick="window.location='deleteapp/{{ i.id }}'"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content%}

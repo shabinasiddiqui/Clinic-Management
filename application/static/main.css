@@ -1,9 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Dosis:wght@600&display=swap");
+
 body {
   background: #c7ecee;
   height: 100vh;
   width: 100vw;
   background-size: cover;
   background-position: center;
+  font-family: "Dosis", sans-serif;
 }
 
 .loginheading {
@@ -69,4 +72,3 @@ body {
   justify-content: center;
   align-items: center;
 }
-

@@ -7,10 +7,11 @@ from werkzeug.utils import secure_filename
 from application import app, db, login_manager
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, ForeignKey, func, delete
+from sqlalchemy import Column, Integer, ForeignKey, func, delete, DateTime
 from sqlalchemy.orm import query, sessionmaker, relationship
-from datetime import datetime, date
+from datetime import datetime, date, time
 from flask_login import login_user, current_user, logout_user, login_required
+import datetime
 import re
 import sqlite3
 
@@ -39,10 +40,11 @@ class Patient(db.Model):
   mstatus=db.Column(db.String(10))
   complaint=db.Column(db.String(5000))
   improvement=db.Column(db.String(5000))
+  medicine_suggested=db.Column(db.String(5000))
   pat_image = db.Column(db.String(20), nullable=False, default='default.jpg')
   
   def __repr__(self) -> str:
-    return f"Patient('{self.id}','{self.pname}', '{self.age}', '{self.phone}', '{self.gender}', '{self.bgroup}', '{self.state}', '{self.address}', '{self.mstatus}', '{self.complaint}', '{self.improvement}','{self.pat_image}' )"
+    return f"Patient('{self.id}','{self.pname}', '{self.age}', '{self.phone}', '{self.gender}', '{self.bgroup}', '{self.state}', '{self.address}', '{self.mstatus}', '{self.complaint}', '{self.improvement}', '{self.medicine_suggested}','{self.pat_image}' )"
   
 class Doctor(db.Model):
   __tablename__ = 'Doctor'
@@ -58,15 +60,16 @@ class Doctor(db.Model):
 class Appointments(db.Model):
   __tablename__ = 'Appointments'
   id = db.Column(db.Integer, primary_key=True)
-  doctor_id = db.Column(db.Integer, db.ForeignKey(Doctor.id))
-  patient_id = db.Column(db.Integer, db.ForeignKey(Patient.id))
+  pname=db.Column(db.String(100))
+  examinedby = db.Column(db.String(100))
   complaint = db.Column(db.String(5000))
   medicine_suggested = db.Column(db.String(5000))
   improvements = db.Column(db.String(5000))
-  # datetime = db.Column(datetime.now(), nullable=False)
+  date= db.Column(db.String(50))
+  time= db.Column(db.String(50))
   def __repr__(self) -> str:
-    return f"Appointments('{self.id}','{self.doctor_id}','{self.patient_id}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.datetime}' )"
-
+    return f"Appointments('{self.id}','{self.pname}','{self.examinedby}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.date}', '{self.time}' )"
+    
 @login_manager.user_loader
 def load_user(user_id):
   return Userstore.query.get(int(user_id))
@@ -379,20 +382,51 @@ def appointment():
 def addappointment(id):
   if 'username' in session:
     addapp = Patient.query.filter_by(id=id).first()
-    # if request.method=='POST':
-      
-  #     pname = request.form['pname']
-  #     if pname != "":
-  #       search="%{}%".format(pname)
-  #       patient = Patient.query.filter(Patient.pname.ilike(search))
-  #       if patient == None:
-  #         flash('No Patients with  this Name exists', 'danger')
-  #         return redirect( url_for('appointment') )
-  #       else:
-  #         flash('Patient Found','success')
-  #         return render_template('appointment.html', patient = patient)
-      
-  #     if pname == "":
-  #       flash('Enter Name to search')
-  #       return redirect( url_for('appointment') )
-    return render_template('addappointment.html',addapp=addapp)
+    docdetail= Doctor.query.all()
+    if request.method=='POST':
+      pat=Patient.query.filter_by(id=id).first()
+      pname=pat.pname
+      examinedby=request.form['examinedby']
+      complaint=request.form['complaint']
+      improvements=request.form['improvements']
+      medicine_suggested=request.form['medicine_suggested']
+      date=request.form['date']
+      time=request.form['time']
+
+      appointment= Appointments(pname=pname,examinedby=examinedby, complaint=complaint,improvements=improvements, medicine_suggested=medicine_suggested, date=date, time=time)
+      db.session.add(appointment)
+      db.session.commit()
+
+      row_update = Patient.query.filter_by( id = id ).update(dict(complaint=complaint,improvement=improvements, medicine_suggested=medicine_suggested))
+      db.session.commit()
+
+      flash('Appointment added successfully')
+      return redirect( url_for('appointment') )
+
+  return render_template('addappointment.html',addapp=addapp, docdetail=docdetail)
+
+@app.route('/viewapp/<id>',methods=['POST','GET'])
+def viewapp(id):
+  if 'username' in session:
+    pat=Patient.query.filter_by(id=id).first()
+    pname=pat.pname
+    appointment= Appointments.query.filter_by(pname=pname).all()
+    if request.method=='GET':
+      return render_template('viewapp.html',appointment=appointment, pat=pat )
+
+    return render_template('viewapp.html',appointment=appointment, pat=pat)
+
+@app.route('/deleteapp/<id>', methods=['POST', 'GET'])
+def deleteapp(id):
+  if 'username' in session:
+    delpat = Appointments.query.filter_by(id = id).delete()
+    db.session.commit()
+
+    if delpat == None:
+      flash('Something Went Wrong')
+      return redirect( url_for('viewapp') )
+    else:
+      flash('Patient deletion initiated successfully')
+      return redirect( url_for('viewapp/<id>') )
+
+  return render_template('viewapp.html')

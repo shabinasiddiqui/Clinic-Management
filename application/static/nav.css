@@ -3,6 +3,7 @@
   margin: 0 10px;
   font-size: 20px;
   border-radius: 7px;
+  font-family: "Audiowide", cursive;
 }
 .nav-link:hover {
   background-color: #273c75;
@@ -22,6 +23,7 @@
 .dropdown {
   position: relative;
   display: inline-block;
+  font-family: "Audiowide", cursive;
 }
 
 .dropdown-content {
@@ -60,7 +62,7 @@
   align-items: center;
 }
 .acc {
-  width: 150px;
+  width: 170px;
   align-items: flex-end;
 }
 /* 
