@@ -50,7 +50,7 @@
     </div>
     <div class="app-view">
       <div class="row">
-        {% for i in appointment %}
+        {% for i in appointment.items %}
         <div class="mt-5 col-4">
           <div class="form-style app-card">
             <div>
@@ -90,6 +90,23 @@
         {% endfor %}
       </div>
     </div>
+    <div>
+      {% for page_num in appointment.iter_pages(left_edge=1, right_edge=1,
+      left_current=1, right_current=2) %} {% if page_num %} {% if
+      appointment.page == page_num %}
+      <a
+        class="btn pagenum_current mb-4 mt-5"
+        href="{{ url_for('viewapp',id=pat.id, page=page_num) }}"
+        >{{ page_num }}</a
+      >
+      {% else %}
+      <a
+        class="btn pagenum mb-4 mt-5"
+        href="{{ url_for('viewapp',id=pat.id, page=page_num) }}"
+        >{{ page_num }}</a
+      >
+      {% endif %} {% else %} ... {% endif %} {% endfor %}
+    </div>
   </div>
 </section>
-{% endblock content%}
+{% include "includes/footer.html" %} {% endblock content%}

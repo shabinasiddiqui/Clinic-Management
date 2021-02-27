@@ -29,6 +29,7 @@ table:hover {
   height: 100vh;
 }
 .search-box {
+  width: inherit;
   align-self: flex-end;
   margin-top: 50px;
 }

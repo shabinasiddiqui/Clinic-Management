@@ -1,0 +1,57 @@
+#card1,
+#card2,
+#card3 {
+  font-size: 20px;
+  margin: 50px;
+  height: 120px;
+  width: 300px;
+  background: #0c2461;
+  color: white;
+  border-radius: 7px;
+  box-shadow: 4px 4px 3px rgb(83, 78, 78), -1px -1px 3px rgb(83, 78, 78);
+}
+.numbers {
+  font-family: "Orbitron", sans-serif;
+  font-size: 30px;
+}
+#dash {
+  position: relative;
+  z-index: -2;
+  top: 0px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inner-dash {
+  display: flex;
+  flex-direction: row;
+}
+.img-section {
+  margin-top: 50px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+.home1 {
+  border-radius: 10px 0px 0px 10px;
+  height: 300px;
+  width: inherit;
+  box-shadow: 7px 7px 3px rgba(12, 36, 97, 0.4);
+}
+.home2 {
+  border-radius: 0px 10px 10px 0px;
+  height: 300px;
+  width: inherit;
+  box-shadow: 7px 7px 3px rgba(12, 36, 97, 0.4);
+}
+.img-1 {
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 50%;
+}
+.img-2 {
+  display: flex;
+  justify-content: flex-start;
+}

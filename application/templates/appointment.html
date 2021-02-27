@@ -1,68 +1,73 @@
 {% extends 'layout.html' %}{% include "includes/nav.html" %}{% block content%}
-
-<div class="container">
-  <div class="search-box">
-    <form class="d-flex" action="" method="POST">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        name="pname"
-        id="pname"
-        aria-label="Search"
-      />
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-  {% with messages = get_flashed_messages(with_categories=true) %} {% if
-  messages %} {% for category,msg in messages %}
-  <small class="alert alert-small alert-{{ category }}">{{ msg }}</small>
-  {% endfor %} {% endif %} {% endwith%}
-  <div class="table table-bordered table-hover">
+<section>
+  <div class="container">
+    <div class="search-box">
+      <form class="d-flex" action="" method="POST">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          name="pname"
+          id="pname"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="mt-5 text-center">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for msg
+      in messages %}
+      <small class="text-success border border-success text-align-center"
+        >{{ msg }}</small
+      >
+      {% endfor %} {% endif %} {% endwith%}
+    </div>
     {% if patient %}
-    <table border="2" cellpadding="5px">
-      <thead class="thead">
-        <tr>
-          <th scope="col">Sr.No</th>
-          <th scope="col">Name</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Address</th>
-          <th scope="col">Complaint</th>
-          <th scope="col">Improvement</th>
-          <th scope="col">View</th>
-          <th scope="col">Add</th>
+    <div class="table table-bordered table-hover">
+      <table class="table" cellpadding="5px">
+        <thead class="thead">
+          <tr>
+            <th scope="col">Sr.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Complaint</th>
+            <th scope="col">Improvement</th>
+            <th scope="col">View</th>
+            <th scope="col">Add</th>
+          </tr>
+        </thead>
+        {% for i in patient %}
+        <tr scope="row">
+          <td></td>
+          <td>{{ i.pname }}</td>
+          <td>{{ i.phone }}</td>
+          <td>{{ i.address }}</td>
+          <td>{{ i.complaint }}</td>
+          <td>{{ i.improvement }}</td>
+          <td>
+            <button
+              type="button"
+              class="dbutton"
+              onclick="window.location='viewapp/{{i.id}}'"
+            >
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="dbutton"
+              onclick="window.location='addappointment/{{ i.id }}'"
+            >
+              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            </button>
+          </td>
         </tr>
-      </thead>
-      {% for i in patient %}
-      <tr scope="row">
-        <td></td>
-        <td>{{ i.pname }}</td>
-        <td>{{ i.phone }}</td>
-        <td>{{ i.address }}</td>
-        <td>{{ i.complaint }}</td>
-        <td>{{ i.improvement }}</td>
-        <td>
-          <button
-            type="button"
-            class="dbutton"
-            onclick="window.location='viewapp/{{i.id}}'"
-          >
-            <i class="fa fa-eye" aria-hidden="true"></i>
-          </button>
-        </td>
-        <td>
-          <button
-            type="button"
-            class="dbutton"
-            onclick="window.location='addappointment/{{ i.id }}'"
-          >
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+        {% endfor %}
+      </table>
+    </div>
     {% endif %}
   </div>
-</div>
-{% endblock content %}
+</section>
+{% include "includes/footer.html" %} {% endblock content %}

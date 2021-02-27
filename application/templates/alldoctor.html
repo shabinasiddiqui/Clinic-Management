@@ -1,52 +1,64 @@
 {% extends 'layout.html' %}{% include "includes/nav.html" %}{% block content%}
-
-<div class="alldoc-container">
-  {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in
-  messages %}
-  <small class="text-success border border-success text-align-center"
-    >{{ msg }}</small
-  >
-  {% endfor %} {% endif %} {% endwith%}
-  <div class="table alldoc-table table-bordered table-hover table-responsive">
-    {% if alldoctor %}
-    <table border="2" cellpadding="5px">
-      <thead class="thead">
-        <tr>
-          <th scope="col">Sr.No</th>
-          <th scope="col">Name</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Qualification</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
+<section>
+  <div class="alldoc-container">
+    <div class="mt-5">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for msg
+      in messages %}
+      <small class="text-success border border-success text-align-center"
+        >{{ msg }}</small
+      >
+      {% endfor %} {% endif %} {% endwith%}
+    </div>
+    <div class="table alldoc-table table-bordered table-hover table-responsive">
+      {% if alldoctor %}
+      <table class="table" cellpadding="5px">
+        <thead class="thead">
+          <tr>
+            <th scope="col">Sr.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        {% for i in alldoctor %}
+        <tr scope="row">
+          <td></td>
+          <td>{{ i.dname }}</td>
+          <td>{{ i.dphone }}</td>
+          <td>{{ i.dqual }}</td>
+          <td>
+            <button
+              type="button"
+              class="ubutton"
+              onclick="window.location='editdoctor/{{ i.id }}'"
+            >
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="dbutton"
+              onclick="window.location='deletedoctor/{{ i.id }}'"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
         </tr>
-      </thead>
-      {% for i in alldoctor %}
-      <tr scope="row">
-        <td></td>
-        <td>{{ i.dname }}</td>
-        <td>{{ i.dphone }}</td>
-        <td>{{ i.dqual }}</td>
-        <td>
-          <button
-            type="button"
-            class="ubutton"
-            onclick="window.location='editdoctor/{{ i.id }}'"
-          >
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          </button>
-        </td>
-        <td>
-          <button
-            type="button"
-            class="dbutton"
-            onclick="window.location='deletedoctor/{{ i.id }}'"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      {% endfor %}
-    </table>
+        {% endfor %}
+      </table>
+    </div>
   </div>
-</div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br /><br /><br />
+  {% include "includes/footer.html" %}
+</section>
 {% endif %} {% endblock content %}

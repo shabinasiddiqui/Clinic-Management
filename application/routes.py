@@ -2,18 +2,19 @@ import os
 import secrets
 from PIL import Image
 from sqlalchemy.sql.expression import update
-from sqlalchemy.sql.functions import user
+from sqlalchemy.sql.functions import count, user
 from werkzeug.utils import secure_filename
 from application import app, db, login_manager
 from flask import render_template, request, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, ForeignKey, func, delete, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, func, delete, DateTime,desc, and_
 from sqlalchemy.orm import query, sessionmaker, relationship
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
 import re
 import sqlite3
+
 
 
 class Userstore(db.Model):
@@ -67,6 +68,7 @@ class Appointments(db.Model):
   improvements = db.Column(db.String(5000))
   date= db.Column(db.String(50))
   time= db.Column(db.String(50))
+
   def __repr__(self) -> str:
     return f"Appointments('{self.id}','{self.pname}','{self.examinedby}','{self.complaint}', '{self.medicine_suggested}', '{self.improvements}', '{self.date}', '{self.time}' )"
     
@@ -76,7 +78,18 @@ def load_user(user_id):
 
 @app.route('/home')
 def home():
-  return render_template('home.html')
+  pat=db.session.query(Patient).count()
+  app=db.session.query(Appointments).count()
+  today= datetime.date.today()
+  seven_days_ago = datetime.date.today() - timedelta(days = 7)
+  allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).all()
+  count=0
+  for i in allapp:
+    print(i)
+    count+=1
+
+
+  return render_template('home.html', pat=pat, app=app, count=count)
   
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
@@ -98,64 +111,15 @@ def login():
       return redirect(url_for('home') )
 
     else:
-      flash('Wrong Credentials. Check Username and Password Again', category="error")
+      flash('Wrong Credentials. Check Username and Password Again', 'danger')
 
   return render_template("login.html")
 
 @app.route('/logout')
 def logout():
   session.pop('username', None)
-  flash('logged out successfully','success')
+  flash('Logged out Successfully','success')
   return redirect( url_for('login') )
-
-@app.route('/account', methods=['GET','POST'])
-def account():
-  if 'username' in session:
-    account= Userstore.query.first()
-    if request.method=='GET':
-      profileimage=url_for('static', filename='images/' + 'account.profileimage')
-      return render_template('account.html', account= account, profileimage=profileimage)
-
-  return render_template('account.html', account=account)
-
-    # elif request.method == 'POST':  
-    #   editaccount = Userstore.query.filter_by( id = id )
-    #   username = request.form['nusername']      
-    #   phone = request.form['nphone']
-    #   password = request.form['npass']
-
-    #   row_update = Userstore.query.filter_by( id = id ).update(dict(id=id,username=username, phone=phone, password=password))
-    #   db.session.commit()
-
-    #   # if row_update == None:
-    #   #   flash('Something Went Wrong')
-    #   #   return redirect( url_for('account') )
-    #   # else:
-    #   #   flash('Patient update initiated successfully')
-    #   #   return redirect( url_for('account') )
-
-    # return render_template('account.html', editaccount = editaccount)
-
-
-# @app.route("/account", methods=['GET', 'POST'])
-# @login_required
-# def account():
-#   form = UpdateAccountForm()
-#   if form.validate_on_submit():
-#     if form.picture.data:
-#         picture_file = save_picture(form.picture.data)
-#         current_user.image_file = picture_file
-#     current_user.username = form.username.data
-#     current_user.email = form.email.data
-#     db.session.commit()
-#     flash('Your account has been updated!', 'success')
-#     return redirect(url_for('account'))
-#   elif request.method == 'GET':
-#       form.username.data = current_user.username
-#       form.phone.data = current_user.phone
-#   image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-#   return render_template('account.html', title='Account',image_file=image_file, form=form)
-  
 
 @app.route('/editaccount/<id>', methods=['GET', 'POST'])
 def editaccount(id):
@@ -170,29 +134,13 @@ def editaccount(id):
       row_update = Userstore.query.filter_by( id = id ).update(dict(username=username, phone=phone, password=password))
       db.session.commit()
 
-      flash('Patient update initiated successfully')
-      # if row_update == None:
-      #   flash('Something Went Wrong')
-      #   return redirect( url_for('editaccount') )
-      # else:
-      #   flash('Patient update initiated successfully')
-      #   return redirect( url_for('editaccount/<id>') )
+      flash('Account Updated Successfully')
+      return render_template('updateaccount.html', editaccount = editaccount)
 
     return render_template('updateaccount.html', editaccount = editaccount)
+  else:
+    return redirect(url_for('login'))
 
-
-# def save_picture(form_picture):
-#   random_hex = secrets.token_hex(8)
-#   _, f_ext = os.path.splitext(form_picture.filename)
-#   picture_fn = random_hex + f_ext
-#   picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
-
-#   output_size = (125, 125)
-#   i = Image.open(form_picture)
-#   i.thumbnail(output_size)
-#   i.save(picture_path)
-
-#   return picture_fn
 
 @app.route('/newpatient', methods=['GET', 'POST'])
 def newpatient():
@@ -213,22 +161,21 @@ def newpatient():
 
       db.session.add(patient)
       db.session.commit()
-      flash('Patient creation initiated successfully')
-      return redirect( url_for('newpatient') )
+      flash('Patient Added Successfully')
+      return redirect( url_for('patientrecord') )
       
-      
+    return render_template("newpatient.html")
   else:
-    flash('You are logged out. Please login again to continue')
+    flash('You are Logged out. Please login again to continue')
     return redirect( url_for('login') )
 
-  return render_template("newpatient.html")
-
-
+  
 @app.route('/patientrecord', methods = ['GET','POST'])
 def patientrecord():
   if 'username' in session:
     if request.method == 'GET':
-      patrcd= Patient.query.all()
+      page= request.args.get('page', 1, type=int)
+      patrcd= Patient.query.paginate(page=page, per_page=10)
       return render_template("patientrecord.html",patrcd=patrcd)
     
     elif request.method == 'POST':
@@ -245,7 +192,7 @@ def patientrecord():
           return render_template('patientrecord.html', patient = patient)
       
       if pname == "":
-        flash('Enter Name to search')
+        flash('Enter Name to Search')
         return redirect( url_for('patientrecord') )
     
     return render_template('patientrecord.html')
@@ -278,7 +225,7 @@ def editpatientdetail(id):
         flash('Something Went Wrong')
         return redirect( url_for('patientrecord') )
       else:
-        flash('Patient update initiated successfully')
+        flash('Patient Updated Successfully')
         return redirect( url_for('patientrecord') )
 
     return render_template('editpatientdetail.html', editpat = editpat)
@@ -293,7 +240,7 @@ def deletepatientdetail(id):
       flash('Something Went Wrong')
       return redirect( url_for('patientrecord') )
     else:
-      flash('Patient deletion initiated successfully')
+      flash('Patient Deleted Successfully')
       return redirect( url_for('patientrecord') )
 
   return render_template('patientrecord.html')
@@ -354,7 +301,7 @@ def editdoctor(id):
         flash('Something Went Wrong')
         return redirect( url_for('alldoctor') )
       else:
-        flash('Patient update initiated successfully')
+        flash('Doctor updated successfully')
         return redirect( url_for('alldoctor') )
 
     return render_template('editdoctor.html', editdoc=editdoc)
@@ -367,7 +314,7 @@ def appointment():
       if pname != "":
         search="%{}%".format(pname)
         patient = Patient.query.filter(Patient.pname.ilike(search))
-        if patient == None:
+        if patient == "":
           flash('No Patients with  this Name exists', 'danger')
           return redirect( url_for('appointment') )
         else:
@@ -411,17 +358,17 @@ def viewapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
     pname=pat.pname
-    appointment= Appointments.query.filter_by(pname=pname).all()
+    page= request.args.get('page', 1, type=int)
+    appointment= Appointments.query.filter_by(pname=pname).order_by(Appointments.date).paginate(page=page, per_page=15)
     if request.method=='GET':
       return render_template('viewapp.html',appointment=appointment, pat=pat)
 
-    return render_template('viewapp.html',appointment=appointment, pat=pat)
+    return render_template('viewapp.html',appointment=appointment, pat=pat, app=app)
 
 @app.route('/deleteapp/<id>', methods=['POST', 'GET'])
 def deleteapp(id):
   if 'username' in session:
     pat=Patient.query.filter_by(id=id).first()
-    pname=pat.pname
     delpat = Appointments.query.filter_by(id=id).delete()
     db.session.commit()
 
@@ -429,7 +376,18 @@ def deleteapp(id):
       flash('Something Went Wrong')
       return redirect(url_for('appointment'))
     else:
-      flash('Patient deletion initiated successfully')
+      flash('Appointment Deleted Successfully')
       return redirect(url_for('appointment'))
 
   return render_template('viewapp.html/<id>')
+
+@app.route('/allapp', methods=['POST', 'GET'])
+def allapp():
+  if 'username' in session:
+    today= datetime.date.today()
+    seven_days_ago = datetime.date.today() - timedelta(days = 7)
+    page= request.args.get('page', 1, type=int)
+    allapp = Appointments.query.filter(Appointments.date<=today, Appointments.date >=seven_days_ago).paginate(page=page, per_page=5)
+    return render_template('allappointment.html', allapp=allapp)
+  
+  # return render_template('allappointments.html', allapp=allapp)

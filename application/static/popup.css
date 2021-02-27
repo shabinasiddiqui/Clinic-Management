@@ -1,0 +1,71 @@
+.modal {
+  text-align: center;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 200px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modalContent {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 7px;
+  width: 40%;
+}
+.close {
+  color: #0c2461;
+  float: right;
+  font-size: 30px;
+}
+.close:hover,
+.close:focus {
+  color: #0c2461;
+  cursor: pointer;
+}
+.modalContent button {
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+}
+.del {
+  background: #0c2461;
+  color: white;
+}
+.del a {
+  color: white;
+}
+.del a:hover {
+  text-decoration: none;
+}
+.del:hover {
+  background: #273c75;
+  color: white;
+  transform: translateZ(2);
+  transition: 0.5s all;
+}
+.cancel {
+  background: #0c2461;
+  color: white;
+}
+.cancel a {
+  color: white;
+}
+.cancel a:hover {
+  text-decoration: none;
+}
+.cancel:hover {
+  background: #273c75;
+  color: white;
+  transform: translateZ(2);
+  transition: 0.5s all;
+}

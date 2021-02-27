@@ -1,11 +1,25 @@
+a {
+  text-decoration: none;
+}
 h1,
 h2,
 h3 {
   color: #0c2461;
 }
 
+ul {
+  list-style: none;
+}
 label {
   color: #0c2461;
+}
+
+body {
+  background: #c7ecee;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  font-family: "Dosis", sans-serif;
 }
 
 textarea {
@@ -53,6 +67,17 @@ input:focus {
 .form-input {
   width: 100%;
 }
-/* div {
-  border: 1px solid black;
-} */
+
+small {
+  font-size: 15px;
+}
+
+.pagenum_current {
+  background: #0c2461;
+  color: white;
+}
+
+.pagenum {
+  background: white;
+  color: #0c2461;
+}

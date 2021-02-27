@@ -1,0 +1,55 @@
+#footer {
+  z-index: -1;
+  position: relative;
+  bottom: 0px;
+  height: 150px;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+}
+.inner-footer {
+  background: #0c2461;
+  height: 100px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.madeby {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+.madeby h5 {
+  font-size: 15px;
+}
+.table-social {
+  margin: 0%;
+  box-shadow: none;
+}
+.social {
+  display: flex;
+  flex-direction: row;
+}
+.social div i {
+  font-size: 25px;
+}
+.adnan {
+  position: relative;
+  left: 90px;
+}
+.shabina {
+  position: relative;
+  left: 140px;
+}
+.linkedin {
+  margin: 3px;
+  border-radius: 5px;
+  color: white;
+}
+.github {
+  margin: 3px;
+  border-radius: 5px;
+  color: white;
+}

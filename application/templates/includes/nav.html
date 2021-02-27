@@ -46,9 +46,9 @@
             <a class="dropdown-item" href="{{url_for('appointment')}}"
               >New Appointment</a
             >
-            <a class="dropdown-item" href="">Pending Appointments</a>
-            <a class="dropdown-item" href="">Today's Appointment</a>
-            <a class="dropdown-item" href="">All Appointment</a>
+            <a class="dropdown-item" href="{{url_for('allapp')}}"
+              >All Appointment</a
+            >
           </div>
         </li>
       </ul>
@@ -56,12 +56,12 @@
   </div>
   <div class="nav-right">
     <div class="acc acc-account">
-      <a href="{{ url_for('account') }}" class="nav-link"
+      <a href="{{ url_for('editaccount', id=1) }}" class="nav-link"
         ><i class="fa fa-user" aria-hidden="true">&nbsp;</i>Account</a
       >
     </div>
-    <div class="acc acc-logout">
-      <a href="{{ url_for('logout') }}" class="nav-link"
+    <div class="acc acc-logout" id="logout-btn">
+      <a href="#" class="nav-link openModal"
         ><i class="fa fa-sign-out" aria-hidden="true">&nbsp;</i>Logout</a
       >
     </div>

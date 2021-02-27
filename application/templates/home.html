@@ -1,1 +1,27 @@
-{% extends 'layout.html' %} {% include "includes/nav.html" %}
+{% extends 'layout.html' %} {% include "includes/nav.html" %} {% block content%}
+<section id="dash">
+  <div class="img-section">
+    <div class="img-1">
+      <img src="../static/images/login2.jpg" class="home1" alt="" />
+    </div>
+    <div class="img-2">
+      <img src="../static/images/login3.jpg" class="home2" alt="" />
+    </div>
+  </div>
+  <div class="inner-dash">
+    <div id="card1" class="text-center">
+      <p>Total Appointments</p>
+      <p class="numbers">{{ app }}</p>
+    </div>
+    <div id="card2" class="text-center">
+      <p>Total Patients</p>
+      <p class="numbers">{{ pat }}</p>
+    </div>
+    <div id="card3" class="text-center">
+      <p>Appointments in last 7 days</p>
+      <p class="numbers">{{ count }}</p>
+    </div>
+  </div>
+  {% include "includes/footer.html" %}
+</section>
+{% endblock content%}
